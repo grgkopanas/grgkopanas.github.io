@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Point-Based Neural Rendering with Per-View Optimization - Georgios Kopanas | GraphDeco, Inria</title>
+	<title>Neural Point Catacaustics for Novel-View Synthesis of Reflections - Georgios Kopanas | GraphDeco, Inria</title>
 
   <!-- Edit site and author settings in `_config.yml` to make the social details your own -->
 
     <meta content="Georgios Kopanas | GraphDeco, Inria" property="og:site_name">
   
-    <meta content="Point-Based Neural Rendering with Per-View Optimization" property="og:title">
+    <meta content="Neural Point Catacaustics for Novel-View Synthesis of Reflections" property="og:title">
   
   
     <meta content="article" property="og:type">
@@ -17,14 +17,14 @@
     <meta content="Georgios Kopanas Research Website" property="og:description">
   
   
-    <meta content="http://grgkopanas.github.io//2021/04/06/point-based-neural-rendering.html" property="og:url">
+    <meta content="http://grgkopanas.github.io//2022/09/19/neural_catacaustics.html" property="og:url">
   
   
-    <meta content="2021-04-06T12:32:20+02:00" property="article:published_time">
+    <meta content="2022-09-19T12:32:20+02:00" property="article:published_time">
     <meta content="http://grgkopanas.github.io//about/" property="article:author">
   
   
-    <meta content="http://grgkopanas.github.io//assets/img/point-based-teaser-big.png" property="og:image">
+    <meta content="http://grgkopanas.github.io//assets/img/CatacausticGeometry.svg" property="og:image">
   
   
     
@@ -37,16 +37,16 @@
     <meta name="twitter:site" content="@">
     <meta name="twitter:creator" content="@">
   
-    <meta name="twitter:title" content="Point-Based Neural Rendering with Per-View Optimization">
+    <meta name="twitter:title" content="Neural Point Catacaustics for Novel-View Synthesis of Reflections">
   
   
-    <meta name="twitter:url" content="http://grgkopanas.github.io//2021/04/06/point-based-neural-rendering.html">
+    <meta name="twitter:url" content="http://grgkopanas.github.io//2022/09/19/neural_catacaustics.html">
   
   
     <meta name="twitter:description" content="Georgios Kopanas Research Website">
   
   
-    <meta name="twitter:image:src" content="http://grgkopanas.github.io//assets/img/point-based-teaser-big.png">
+    <meta name="twitter:image:src" content="http://grgkopanas.github.io//assets/img/CatacausticGeometry.svg">
   
 
 	<meta name="description" content="">
@@ -97,42 +97,36 @@
     
     <div class="page-cover-image">
       <figure>
-        <img class="page-image" src=/assets/img/point-based-teaser-big.png alt="Point-Based Neural Rendering with Per-View Optimization">
+        <img class="page-image" src=/assets/img/CatacausticGeometry.svg alt="Neural Point Catacaustics for Novel-View Synthesis of Reflections">
         
       </figure>
     </div> <!-- End Page Cover Image -->
     
     <div class="wrap-content">
       <header class="header-page">
-        <h1 class="page-title">Point-Based Neural Rendering with Per-View Optimization</h1>
+        <h1 class="page-title">Neural Point Catacaustics for Novel-View Synthesis of Reflections</h1>
       </header>
       <div>
-<b><a href="/">Georgios Kopanas</a></b>, <a href="https://www.julienphilip.com/">Julien Philip</a>, <a href="https://www-sop.inria.fr/members/Thomas-Sebastian.Leimkuhler/">Thomas Leimkühler</a>, <a href="http://www-sop.inria.fr/members/George.Drettakis/">George Drettakis</a>
+<b><a href="/">Georgios Kopanas</a></b>, <a href="https://people.mpi-inf.mpg.de/~tleimkue/">Thomas Leimkühler</a>, <a href="https://scholar.google.com/citations?user=uRSdPokAAAAJ&amp;hl=en">Gilles Rainer</a>, <a href="" onclick="return false;">Clément Jambon</a>, <a href="http://www-sop.inria.fr/members/George.Drettakis/">George Drettakis</a>
 </div>
-<h4 id="eurographics-symposium-on-rendering-egsr-2021">Eurographics Symposium on Rendering (EGSR) 2021</h4>
+<h4 id="siggraph-asia-2022">SIGGRAPH Asia 2022</h4>
 <h3 id="abstract">Abstract</h3>
 <div class="main-abstract">
-There has recently been great interest in neural rendering methods. Some approaches use 3D geometry reconstructed with
-Multi-View Stereo (MVS) but cannot recover from the errors of this process, while others directly learn a volumetric neural
-representation, but suffer from expensive training and inference. We introduce a general approach that is initialized with MVS,
-but allows further optimization of scene properties in the space of input views, including depth and reprojected features, resulting in improved novel-view synthesis. A key element of our approach is our new differentiable point-based pipeline, based on bi-directional Elliptical Weighted Average splatting, a probabilistic depth test and effective camera selection. We use these elements together in our neural renderer, that outperforms all previous methods both in quality and speed in almost all scenes we tested. Our pipeline can be applied to multi-view harmonization and stylization in addition to novel-view synthesis.
+        <p>
+        View-dependent effects such as <i>reflections</i> pose a substantial challenge for image-based and neural rendering algorithms. Above all, curved reflectors are particularly hard, as they lead to highly non-linear reflection flows as the camera moves. 
+        </p>
+        <p>
+        We introduce a new <i>point-based representation</i> to compute <b>Neural Point Catacaustics</b> allowing novel-view synthesis of scenes with curved reflectors, from a set of casually-captured input photos. At the core of our method is a <b>neural warp field</b> that models catacaustic trajectories of reflections, so complex specular effects can be rendered using efficient point splatting in conjunction with a neural renderer. One of our key contributions is the explicit representation of reflections with a reflection point cloud which is displaced by the neural warp field, and a primary point cloud which is optimized to represent the rest of the scene. After a short manual annotation step, our approach allows <b>interactive high-quality renderings of novel views with accurate reflection flow.</b>
+        </p>
+        <p>
+        Additionally, the explicit representation of reflection flow supports several forms of scene manipulation in captured scenes, such as reflection editing, cloning of specular objects, reflection tracking across views, and comfortable stereo viewing.
+        </p>
 </div>
 <div class="post-links">
-<a href="http://www-sop.inria.fr/reves/Basilic/2021/KPLD21/" target="_blank"><i class="fa fa-file" aria-hidden="true"></i> Paper </a>
-<a href="https://repo-sam.inria.fr/fungraph/differentiable-multi-view/" target="_blank"><i class="fa fa-code" aria-hidden="true"></i> Webpage </a>
-<a href="https://youtu.be/u9HqKGqvJhQ?t=4755"><i class="fa fa-play-circle" aria-hidden="true"></i> Presentation </a>
+<a href="https://repo-sam.inria.fr/fungraph/neural_catacaustics/neural-catacaustics_small.pdf" target="_blank"><i class="fa fa-file" aria-hidden="true"></i> Pre-Print Paper </a>
+<a href="https://repo-sam.inria.fr/fungraph/neural_catacaustics" target="_blank"><i class="fa fa-code" aria-hidden="true"></i> Webpage </a>
 </div>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@inproceedings{kopanas2021point,
-  title={Point-Based Neural Rendering with Per-View Optimization},
-  author={Kopanas, Georgios and Philip, Julien and Leimk{\"u}hler, Thomas and Drettakis, George},
-  booktitle={Computer Graphics Forum},
-  volume={40},
-  number={4},
-  pages={29--43},
-  year={2021},
-  organization={Wiley Online Library}
-}
-</code></pre></div></div>
+
 
       </div>
     </div> <!-- End Wrap Content -->
