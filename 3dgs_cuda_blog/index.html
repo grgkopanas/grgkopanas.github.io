@@ -480,6 +480,7 @@
       <li><a href="#sec13">Full 9-Scene Mip-NeRF 360 Benchmark &amp; Roofline Analysis</a></li>
       <li><a href="#sec14">End-to-End 3DGS Training Verification</a></li>
       <li><a href="#note">Note</a></li>
+      <li><a href="#citation">Citation</a></li>
       <li><a href="#references">References</a></li>
     </ul>
   </nav>
@@ -657,7 +658,7 @@
     To isolate the hardware impact of each transformation, we structured our CUDA implementation as seven self-contained, progressive packages, <code>s00_<wbr>baseline</code> through <code>s06_<wbr>multirow_<wbr>and_<wbr>pipe_<wbr>math</code>. The first, <code>s00_<wbr>baseline</code>, is a faithful re-implementation of Inria's CUDA rasterizer [1] in our benchmark harness. It matches Inria's rendered PSNR to 0.01 dB and closely tracks its latency, and it is structured so that each later package adds one step of optimizations on top of the previous one, which lets us measure every step in isolation. All speedups against Inria in this post are nevertheless computed against Inria's own measured latency. We verify every package against a dense brute-force reference (<code>max_<wbr>abs ≤ 2e-5</code> on forward rendered images and <code>rel_<wbr>l2 ≤ 1e-4</code> on all 59 parameter gradients) and benchmark all 9 Mip-NeRF 360 scenes at both the 7,000- and 30,000-iteration checkpoints on a single NVIDIA A100-SXM4-40GB GPU.
   </p>
   <p>
-    We report end-to-end latencies for the forward pass (<code>fwd</code>) and the full forward + backward training step (<code>fwd-bwd</code>), as well as per-stage CUDA-event latencies. All latencies are synchronous, where the host waits for the GPU to finish after every step. Before each profiled step we run 20 unprofiled <code>fwd-bwd</code> warm-up steps, so that the SM clock stays at its boost clock of 1410 MHz during the per-stage measurements. Each end-to-end latency is the mean over 3 passes through all test views of a scene within one job (after a single warm-up step), and we report the median of 3 independent jobs. Per-stage times are the median of 5 in-process repeats on test view 0, taken from the fastest of the 3 jobs (the GPU clock governor can only slow a profiled step down). We additionally benchmark three external references (Inria [1], <code>gsplat</code> [4], and LichtFeld Studio (<code>fastgs</code>) [12]), which we measure with the same harness and protocol.
+    We report end-to-end latencies for the forward pass (<code>fwd</code>) and the full forward + backward training step (<code>fwd-bwd</code>), as well as per-stage CUDA-event latencies. All latencies are synchronous, where the host waits for the GPU to finish after every step. Before each profiled step we run 20 unprofiled <code>fwd-bwd</code> warm-up steps, so that the SM clock stays at its boost clock of 1410 MHz during the per-stage measurements. Each end-to-end latency is the mean over 3 passes through all test views of a scene within one job (after a single warm-up step), and we report the median of 3 independent jobs. Per-stage times are the median of 5 in-process repeats on test view 0, taken from the fastest of the 3 jobs (the GPU clock governor can only slow a profiled step down). We additionally benchmark three external references (Inria [1], <code>gsplat</code> [4], and LichtFeld Studio (<code>fastgs</code>, commit <code>e0de4fa</code>) [12]), which we measure with the same harness and protocol.
   </p>
 
   <!-- ==================== SECTION 3 ==================== -->
@@ -3097,6 +3098,19 @@
     This article and the kernels behind it were heavily brainstormed, coded, and tested by autonomous agents, and more specifically Gemini 4 Argon.
   </p>
 
+  <!-- ==================== CITATION ==================== -->
+  <h2 id="citation">Citation</h2>
+  <p>
+    If you find this post or these optimizations useful in your research or codebase, please consider citing:
+  </p>
+  <pre><code>@misc{kopanas2026cuda3dgs,
+  author       = {Kopanas, George},
+  title        = {What the 3DGS Literature Left on the Table: Five Self-Contained CUDA Optimizations for 3D Gaussian Splatting},
+  year         = {2026},
+  month        = oct,
+  howpublished = {\url{https://grgkopanas.github.io/3dgs_cuda_blog/}}
+}</code></pre>
+
   <!-- ==================== REFERENCES ==================== -->
   <h2 id="references">References</h2>
   <ol class="references-list" style="font-size: 0.92rem; line-height: 1.55; padding-left: 1.5rem; color: var(--fg);">
@@ -3134,7 +3148,7 @@
       K. J. Yang, G. Drettakis, and G. Bernstein, &ldquo;Warp-Level Culling for Efficient Blending in 3D Gaussian Splatting,&rdquo; <i>Proceedings of the ACM on Computer Graphics and Interactive Techniques (PACMCGIT / HPG)</i>, 2026.
     </li>
     <li id="ref-12" style="margin-bottom: 0.5rem;">
-      F. Hahlbohm and MrNeRF, &ldquo;LichtFeld Studio (<code>fastgs</code> CUDA Rasterizer),&rdquo; <i>Open-Source Software Repository</i>, 2025.
+      F. Hahlbohm and MrNeRF, &ldquo;LichtFeld Studio (<code>fastgs</code> CUDA Rasterizer),&rdquo; <i>Open-Source Software Repository</i>, commit <code>e0de4fa</code>, 2025.
     </li>
   </ol>
 
